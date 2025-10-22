@@ -19,6 +19,9 @@ You’ll also get ready-to-paste templates: a minimal Rule file, task prompt tem
 * **No silent drifts:** Pin library versions, enforce lint/format, require self-review checklists, and run CI on every AI PR.
 * **Work within a scaffolded architecture:** You define layers, boundaries, and conventions up front; the AI must stay inside them.
 
+> Follow-up: 
+> - How to combine OpenAPI with JSON Schema
+
 ## Phase 0 — Repo scaffolding (once)
 
 * **Backend:** Create project (FastAPI or NestJS). Add layers (`/api`, `/domain`, `/services`, `/repos`, `/infra`).
@@ -27,6 +30,11 @@ You’ll also get ready-to-paste templates: a minimal Rule file, task prompt tem
 * **Contracts:** `/contracts/openapi.yaml`, `/contracts/schemas/*.json`.
 * **Tooling:** typegen (e.g., openapi-typescript / datamodel-codegen), Swagger UI in dev, Storybook (web) or Expo + story files (mobile).
 * **Version pinning:** lock files checked in; Renovate/Dependabot for controlled upgrades.
+
+> Follow-up: 
+> - What are Black, ruff, Vitest?
+> - How to use typegen?
+> - What are Renovate and Dependabot and when are they needed?
 
 ## Phase 1 — Requirements & architecture docs (authoritative inputs)
 
@@ -38,6 +46,10 @@ Create 3 short docs (checked into `/docs`):
 
 > These docs are what your Rule file points the AI to. They keep generations consistent and cheap.
 
+> Follow-up
+> - Does pointing to `/docs` in rules not contribute to the token count?
+> - What is meant by transaction boundaries
+
 ## Phase 2 — Contract-first backbone
 
 * Draft endpoints in **OpenAPI** (even placeholders).
@@ -45,6 +57,9 @@ Create 3 short docs (checked into `/docs`):
 * Add **contract tests** (e.g., Dredd, Schemathesis or simple pytest hitting FastAPI with the spec) and **Pact** (optional) if you want consumer-driven contract checks.
 
 Deliverable: CI that fails if server deviates from OpenAPI or if frontend types become stale.
+
+> Follow-up
+> - Investigate Dredd, Schemathesis and Pact
 
 ## Phase 3 — Backend implementation (task slices)
 
@@ -70,6 +85,13 @@ Recommended task slices (each = one Cursor task + one PR):
 
 > Use Figma link **plus** a terse screen spec (below). Let AI propose a component map first; then approve; then implement in small PRs.
 
+> Follow-up
+> - What are design tokens in Figma
+> - How to define design tokens and theming in Figma to be able to extract them? What would be the output? (design-system primitives?)
+> - How to define the component inventory task?
+> - What are keyboard traps and ARIA?
+> - What is Playwright?
+
 ## Phase 5 — Verification loop on every PR
 
 * **AI self-review checklist** (included below) must pass.
@@ -91,6 +113,9 @@ Keep this short (~150–300 lines). Link to your `/docs` so it doesn’t balloon
 * Lock **architecture boundaries** & **library choices**.
 * Lock **style** and **error model**.
 * Provide **checklists** (security, perf, a11y) as *bullet lists*, not essays.
+
+> Follow-up
+> - What is a11y?
 
 **Paste-ready Rule file (trim to taste):**
 
@@ -153,6 +178,13 @@ You MUST:
    - [ ] No new deps (or justified)
 4) OUTPUT: show final diff and commands to run tests.
 ```
+
+> Follow-up
+> - What is the RFC7807 spec?
+> - What is Zod?
+> - What is Authz
+> - What is meant by 'Log PII with hashing/redaction rules only.'
+> - Performance checklist may not be needed at first.
 
 **Why this works**
 
@@ -244,6 +276,9 @@ Interactions:
 A11y:
 - Landmark roles, focus trap in modal, ESC closes modal, tab order documented
 ```
+
+> Follow-up:
+> - What is the A11y stuff about?
 
 ---
 
@@ -348,6 +383,9 @@ Constraints:
   * Lint, typecheck, unit + integration, bundle size budgets (frontend).
   * Secret scan (gitleaks/truffleHog).
 
+> Follow-up:
+> - Check out gitleaks and truffleHog
+
 * **Error model consistency**
 
   * Standardize one error envelope (RFC7807), map all exceptions to it, and test it.
@@ -356,9 +394,15 @@ Constraints:
 
   * Correlation IDs, request/response logging (redacted), trace spans around controllers and external calls. Basic metrics counters.
 
+> Follow-up:
+> - What is meant by correlation IDs?
+
 * **Security posture**
 
   * Input validation everywhere, output encoding, strict CORS, rate limiting for public endpoints, permission checks in services, secure cookies/headers (Helmet/secure middleware), CSRF where relevant.
+
+> Follow-up:
+> - Check out Helmet
 
 * **Data migration discipline**
 
@@ -375,6 +419,10 @@ Constraints:
 * **Release tracks**
 
   * Staging env with seeded data; preview deployments per PR (Vercel/Fly/Render); smoke tests on preview.
+
+> Follow-up:
+> - Check out Vercel, Fly and Render
+> - What is a smoke test?
 
 * **Prompt rot control**
 
