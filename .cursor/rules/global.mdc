@@ -1,0 +1,28 @@
+---
+alwaysApply: false
+---
+# Core Development Principles
+
+## Code Quality
+- Write clean, readable, self-documenting code
+- Follow SOLID principles
+- Prefer composition over inheritance
+- Keep functions small and focused (single responsibility)
+- Keep code DRY
+
+## Testing
+- Write unit tests for business logic
+- Test edge cases and error conditions
+- Aim for meaningful test coverage, not just high percentages
+
+## Error Handling
+- Use explicit error types/classes
+- Never swallow exceptions
+- Provide meaningful error messages
+- Log errors with appropriate context
+- Prefer to let unexpected errors be handled by the exception handling middleware. Only catch and handle errors if some meaningfull action can be taken
+
+## Documentation
+- Document complex logic and business rules
+- Keep comments focused on "why", not "what"
+- Update documentation when changing behavior

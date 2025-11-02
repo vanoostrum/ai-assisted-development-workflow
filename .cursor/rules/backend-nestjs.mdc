@@ -1,0 +1,42 @@
+---
+alwaysApply: false
+---
+# Backend Development Rules
+
+## Architecture
+- Follow Controller → Service → Repository pattern
+- Controllers: Handle HTTP, validation, response formatting
+- Services: Implement business logic, orchestrate repositories
+- Repositories: Data access only, no business logic
+
+## API Design
+- Follow provided OpenAPI specification
+- Return appropriate HTTP status codes
+- Validate all inputs at controller level
+- Use DTOs for request/response, entities for data layer
+
+## Dependencies
+- prefer the use of existing libraries over writing function in the project. Do not reinvent the wheel.
+- Only use libraries that are well maintained, documented and have a broad user base.
+- Use TypeORM
+- For input validation use the nest.js validation method with pipes, depend on class-validator and class-transformer
+
+## Configuration:
+ - All configuration variables should be put in .env files. Use best practices to separate configuration for local, test, accept and production.
+ - Configuration should be loaded and made available using Nest.js best practices like Injectable ConfigService
+
+## Testing
+- All tests are put in the 'test' directory in the project root
+- Keep the same directory structure for the tests as for the source code.
+- Use jest for unit testing
+- Use cypress for integration testing
+- Service layer must have unit tests
+- Use mocks for repository dependencies
+- Test business rule edge cases
+
+## Coding style
+- Follow the projects lint and prettier rules
+- Check if generated code passes linting and prettier
+- Always specify function parameter and return types
+- For other variables, only specify the type if it increases readability
+- Use Dependeny Injection as much as possible
